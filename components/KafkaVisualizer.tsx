@@ -354,7 +354,7 @@ export default function KafkaVisualizer() {
           <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
           Live Message Stream
         </h3>
-        <div className="space-y-1">
+        <div className="space-y-1 h-20 flex flex-col">
           <AnimatePresence mode="popLayout">
             {messages.slice(-3).reverse().map((msg) => (
               <motion.div
