@@ -277,25 +277,27 @@ export default function KafkaVisualizer() {
 
                     return (
                       <div key={idx} className="bg-slate-900/50 rounded p-2">
-                        <div className="flex items-center justify-between text-xs mb-1">
-                          <span className="text-slate-400">Partition {idx}</span>
-                          <span className={`${lag > 100 ? 'text-red-400' : 'text-emerald-400'}`}>
+                        <div className="flex items-center justify-between text-xs gap-2">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className="text-slate-400 shrink-0">Partition {idx}</span>
+                            <div className="flex gap-1 overflow-x-auto">
+                              <AnimatePresence>
+                                {partitionMessages.slice(0, 8).map((msg) => (
+                                  <motion.div
+                                    key={msg.id}
+                                    initial={{ scale: 0, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    exit={{ scale: 0, opacity: 0 }}
+                                    className="w-2 h-2 rounded-full shrink-0"
+                                    style={{ backgroundColor: topic.color }}
+                                  />
+                                ))}
+                              </AnimatePresence>
+                            </div>
+                          </div>
+                          <span className={`shrink-0 ${lag > 100 ? 'text-red-400' : 'text-emerald-400'}`}>
                             Lag: {lag}
                           </span>
-                        </div>
-                        <div className="flex gap-1">
-                          <AnimatePresence>
-                            {partitionMessages.slice(0, 8).map((msg) => (
-                              <motion.div
-                                key={msg.id}
-                                initial={{ scale: 0, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0, opacity: 0 }}
-                                className="w-2 h-2 rounded-full"
-                                style={{ backgroundColor: topic.color }}
-                              />
-                            ))}
-                          </AnimatePresence>
                         </div>
                       </div>
                     );
