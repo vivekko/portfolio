@@ -278,16 +278,17 @@ export default function KafkaVisualizer() {
                     return (
                       <div key={idx} className="bg-slate-900/50 rounded p-2">
                         <div className="flex items-center justify-between text-xs gap-2">
-                          <div className="flex items-center gap-2 min-w-0">
+                          <div className="flex items-center gap-2 min-w-0 flex-1">
                             <span className="text-slate-400 shrink-0">Partition {idx}</span>
-                            <div className="flex gap-1 overflow-x-auto">
-                              <AnimatePresence>
+                            <div className="flex gap-1 min-h-[8px] h-2 items-center flex-1">
+                              <AnimatePresence mode="popLayout">
                                 {partitionMessages.slice(0, 8).map((msg) => (
                                   <motion.div
                                     key={msg.id}
                                     initial={{ scale: 0, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
                                     exit={{ scale: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
                                     className="w-2 h-2 rounded-full shrink-0"
                                     style={{ backgroundColor: topic.color }}
                                   />
@@ -353,9 +354,9 @@ export default function KafkaVisualizer() {
           <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
           Live Message Stream
         </h3>
-        <div className="space-y-1 max-h-40 overflow-y-auto">
-          <AnimatePresence>
-            {messages.slice(-10).reverse().map((msg) => (
+        <div className="space-y-1">
+          <AnimatePresence mode="popLayout">
+            {messages.slice(-3).reverse().map((msg) => (
               <motion.div
                 key={msg.id}
                 initial={{ opacity: 0, x: -20 }}
