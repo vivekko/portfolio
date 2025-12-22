@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vivek Ojha - Backend Engineer Portfolio
 
-## Getting Started
+A modern, responsive portfolio website showcasing backend engineering expertise with 3D animations and smooth interactions.
 
-First, run the development server:
+## 🚀 Features
+
+- **3D Network Visualization**: Interactive Three.js animation representing microservices architecture
+- **Smooth Animations**: Framer Motion for fluid page transitions and scroll animations
+- **Responsive Design**: Fully responsive across all devices
+- **Dark Theme**: Modern dark UI optimized for developer aesthetic
+- **SEO Optimized**: Meta tags and structured data for better search visibility
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **3D Graphics**: Three.js with React Three Fiber
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+
+## 📦 Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚢 Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Deploy to Vercel (Recommended)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push your code to GitHub
+2. Go to [Vercel](https://vercel.com)
+3. Import your repository
+4. Vercel will auto-detect Next.js and deploy
+5. Your site will be live at `your-project.vercel.app`
 
-## Learn More
+**Quick Deploy:**
+```bash
+# Install Vercel CLI
+npm i -g vercel
 
-To learn more about Next.js, take a look at the following resources:
+# Deploy
+vercel
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Other Platforms
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Netlify**: Connect your GitHub repo and deploy
+- **Railway**: Import project and deploy with one click
 
-## Deploy on Vercel
+## 📂 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+portfolio/
+├── app/
+│   ├── layout.tsx       # Root layout with metadata
+│   ├── page.tsx         # Main page
+│   └── globals.css      # Global styles
+├── components/
+│   ├── Hero.tsx         # Hero section with 3D background
+│   ├── About.tsx        # About section
+│   ├── Experience.tsx   # Work experience timeline
+│   ├── TechStack.tsx    # Technical skills
+│   ├── Contact.tsx      # Contact information
+│   └── NetworkVisualization.tsx  # Three.js 3D network
+└── public/              # Static assets
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎨 Customization
+
+### Update Personal Information
+
+Edit the following files:
+- `components/Hero.tsx` - Name, title, links
+- `components/About.tsx` - Bio and achievements
+- `components/Experience.tsx` - Work history
+- `components/TechStack.tsx` - Skills and technologies
+- `components/Contact.tsx` - Contact details
+
+### Modify Theme Colors
+
+Edit Tailwind classes in components or customize `tailwind.config.ts`
+
+## 📝 License
+
+MIT License - feel free to use this template for your own portfolio!
+
+## 🤝 Contact
+
+- **Email**: vivekojha961@gmail.com
+- **LinkedIn**: [vivek-ojha](https://www.linkedin.com/in/vivek-ojha-a540a9172/)
+- **GitHub**: [@vivekko](https://github.com/vivekko)
+
+---
+
+Built with ❤️ using Next.js and Three.js
