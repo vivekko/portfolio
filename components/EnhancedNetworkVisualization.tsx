@@ -144,21 +144,27 @@ function AnimatedLine({
     }
   });
 
-  const geometry = useMemo(() => {
-    const points = [new THREE.Vector3(...start), new THREE.Vector3(...end)];
-    return new THREE.BufferGeometry().setFromPoints(points);
+  const points = useMemo(() => {
+    return [new THREE.Vector3(...start), new THREE.Vector3(...end)];
   }, [start, end]);
 
-  return (
-    <line ref={lineRef} geometry={geometry}>
-      <lineBasicMaterial
-        color={isActive ? "#3b82f6" : "#475569"}
-        transparent
-        opacity={0.3}
-        linewidth={2}
-      />
-    </line>
-  );
+  const geometry = useMemo(() => {
+    return new THREE.BufferGeometry().setFromPoints(points);
+  }, [points]);
+
+  const material = useMemo(() => {
+    return new THREE.LineBasicMaterial({
+      color: isActive ? "#3b82f6" : "#475569",
+      transparent: true,
+      opacity: 0.3,
+    });
+  }, [isActive]);
+
+  const line = useMemo(() => {
+    return new THREE.Line(geometry, material);
+  }, [geometry, material]);
+
+  return <primitive object={line} ref={lineRef} />;
 }
 
 function NetworkScene() {
