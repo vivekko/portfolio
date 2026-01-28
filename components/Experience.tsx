@@ -11,48 +11,63 @@ export default function Experience() {
 
   const experiences = [
     {
-      company: 'Smarsh',
-      role: 'Backend Engineer',
-      period: '2023 - Present',
-      duration: '~1.5 years',
-      description: 'Leading backend development initiatives in compliance and archiving solutions',
+      company: 'Smarsh (Caizin)',
+      location: 'Pune, India',
+      role: 'Software Engineer II',
+      period: 'Jun 2025 – Present',
+      duration: 'Current',
+      description: 'Leading Java modernization and CI/CD initiatives for enterprise compliance solutions',
       highlights: [
-        'Leading Storm migration to modernize data processing pipelines',
-        'Architecting scalable microservices for enterprise compliance solutions',
-        'Optimizing system performance and reducing API latencies',
-        'Implementing cloud-native solutions with Kubernetes orchestration',
+        'Led Java 8 to Java 17 migration across 10 production microservices with zero downtime deployment',
+        'Architected CI/CD pipelines in Concourse for automated build, deployment, and smoke testing',
+        'Maintained critical workflow integrity through comprehensive regression testing',
       ],
-      technologies: ['Spring Boot', 'Kubernetes', 'Apache Storm', 'Microservices', 'AWS'],
+      technologies: ['Java 17', 'Spring Boot', 'Concourse CI', 'Microservices', 'AWS'],
     },
     {
-      company: 'Trux Inc',
-      role: 'Backend Engineer',
-      period: '2021 - 2023',
-      duration: '1.5 years',
-      description: 'Built scalable backend systems for logistics and transportation platform',
-      highlights: [
-        'Designed and implemented event-driven microservices from scratch using AWS Kinesis',
-        'Integrated OAuth authentication using Keycloak for secure service-to-service communication',
-        'Implemented Istio service mesh over Kubernetes for enhanced observability and traffic management',
-        'Reduced API response times through caching strategies and query optimization',
-        'Developed RESTful APIs for real-time logistics tracking and fleet management',
-      ],
-      technologies: ['Spring Boot', 'AWS Kinesis', 'Keycloak', 'Istio', 'Kubernetes', 'RabbitMQ', 'PostgreSQL'],
-    },
-    {
-      company: 'Turtlemint',
+      company: 'Trux, Inc.',
+      location: 'Boston, MA (Remote)',
       role: 'Software Engineer',
-      period: '2020 - 2021',
+      period: 'Oct 2023 – Jun 2025',
       duration: '1.5 years',
-      description: 'Developed backend services for fintech insurance platform',
+      description: 'Built scalable event-driven systems for logistics and transportation platform',
       highlights: [
-        'Migrated monolithic applications from Java 8 to Java 17 with improved performance',
-        'Built microservices for insurance policy management and payment processing',
-        'Integrated third-party payment gateways and insurance APIs',
-        'Implemented message queuing with Kafka for asynchronous processing',
-        'Contributed to frontend development using AngularJS',
+        'Engineered FMCSA/USDOT verification integration, contributing to 55% increase in sales conversion',
+        'Designed event-driven microservices using Amazon Kinesis for virtual load generation',
+        'Built GPS-enabled geofence tracking system (TRUXHMA), streamlining driver compliance by 30%',
+        'Reduced manual data entry errors through automated work log completion',
       ],
-      technologies: ['Spring Boot', 'Java 17', 'Kafka', 'MySQL', 'AngularJS', 'Docker'],
+      technologies: ['Spring Boot', 'AWS Kinesis', 'PostgreSQL', 'GPS/Geofencing', 'REST APIs'],
+    },
+    {
+      company: 'Turtlemint India',
+      location: 'Pune, India',
+      role: 'Software Engineer',
+      period: 'Jun 2022 – Oct 2023',
+      duration: '1.5 years',
+      description: 'Developed authentication, security, and observability systems for fintech insurance platform',
+      highlights: [
+        'Implemented unified authentication layer with OIDC/SAML via Keycloak for SSO/SLO',
+        'Built Redis-based distributed rate limiting using sliding window algorithm (DoS prevention)',
+        'Integrated Istio service mesh for mTLS, traffic routing, and distributed tracing',
+        'Achieved 20x improvement in build times migrating Maven to Gradle on Java 17',
+        'Built AWS Cost Usage dashboards in Superset for real-time cloud spend visibility',
+      ],
+      technologies: ['Spring Boot', 'Keycloak', 'Redis', 'Istio', 'Kubernetes', 'Java 17', 'Superset'],
+    },
+    {
+      company: 'Turtlemint India',
+      location: 'Mumbai, India',
+      role: 'Software Engineer Intern',
+      period: 'Feb 2022 – Jun 2022',
+      duration: '5 months',
+      description: 'Built reactive applications and improved infrastructure reliability',
+      highlights: [
+        'Built reactive Spring Boot application with WebFlux & Reactor for non-blocking API consumption',
+        'Migrated RabbitMQ from standalone to clustered mode for improved fault tolerance',
+        'Containerized applications with Docker and deployed to Kubernetes with Jenkins CI/CD',
+      ],
+      technologies: ['Spring WebFlux', 'Reactor', 'RabbitMQ', 'Docker', 'Kubernetes', 'Jenkins'],
     },
   ];
 
@@ -84,6 +99,11 @@ export default function Experience() {
                       {exp.company}
                     </h3>
                     <p className="text-xl text-blue-400 font-semibold mt-1">{exp.role}</p>
+                    {'location' in exp && (
+                      <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
+                        <span>📍</span> {exp.location}
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center gap-2 text-slate-400">
                     <Calendar size={18} />

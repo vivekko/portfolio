@@ -43,23 +43,43 @@ export default function Hero() {
             </motion.h1>
 
             <motion.h2
-              className="text-2xl sm:text-3xl md:text-4xl font-semibold text-blue-400 mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Backend Engineer
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400">
+                Backend Engineer
+              </span>
+              <span className="text-slate-400 text-xl sm:text-2xl ml-3">@ Smarsh</span>
             </motion.h2>
 
             <motion.p
-              className="text-lg sm:text-xl text-slate-300 mb-8 max-w-3xl mx-auto"
+              className="text-lg sm:text-xl text-slate-300 mb-4 max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              Specializing in Spring Boot microservices, Kubernetes orchestration, and event-driven architectures.
-              Building scalable distributed systems with 3+ years of experience in fintech and logistics domains.
+              <span className="text-blue-400 font-semibold">3+ years</span> building high-performance microservices & distributed systems.
+              Specializing in <span className="text-emerald-400">Spring Boot</span>, <span className="text-purple-400">Kafka/Kinesis</span>, and <span className="text-orange-400">Kubernetes</span>.
             </motion.p>
+
+            <motion.div
+              className="flex flex-wrap justify-center gap-3 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+            >
+              {[
+                { label: '55% Sales Increase', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50' },
+                { label: '30% Efficiency Gains', color: 'bg-purple-500/20 text-purple-300 border-purple-500/50' },
+                { label: '20x Faster Builds', color: 'bg-orange-500/20 text-orange-300 border-orange-500/50' },
+              ].map((badge, idx) => (
+                <span key={idx} className={`px-4 py-2 rounded-full text-sm font-medium border ${badge.color}`}>
+                  {badge.label}
+                </span>
+              ))}
+            </motion.div>
 
             <motion.div
               className="flex flex-wrap justify-center gap-4 mb-8"

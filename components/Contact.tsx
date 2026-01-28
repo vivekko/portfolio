@@ -82,7 +82,7 @@ export default function Contact() {
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping"></div>
             </div>
-            <span className="text-slate-300 font-medium">Currently at Smarsh • Open to opportunities</span>
+            <span className="text-slate-300 font-medium">Software Engineer II @ Smarsh • Open to opportunities</span>
           </motion.div>
 
           {/* CTA */}

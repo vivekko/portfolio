@@ -12,23 +12,23 @@ export default function About() {
   const highlights = [
     {
       icon: Code2,
-      title: 'Microservices Architecture',
-      description: 'Expert in building event-driven microservices with Spring Boot, Kafka, and RabbitMQ',
+      title: 'Microservices & APIs',
+      description: 'Building event-driven microservices with Spring Boot, REST APIs, and reactive programming with WebFlux',
     },
     {
       icon: Cloud,
-      title: 'Cloud & Infrastructure',
-      description: 'Proficient in Kubernetes, Istio service mesh, and cloud-native application development',
+      title: 'Cloud & Kubernetes',
+      description: 'AWS (Lambda, S3, ECS, Kinesis), Docker, Kubernetes orchestration, and Istio service mesh',
     },
     {
       icon: Database,
-      title: 'Data Engineering',
-      description: 'Experience with AWS Kinesis, distributed systems, and real-time data processing',
+      title: 'Data & Streaming',
+      description: 'Apache Kafka, Amazon Kinesis, Redis caching, PostgreSQL, and distributed data processing',
     },
     {
       icon: GitBranch,
-      title: 'DevOps & CI/CD',
-      description: 'Skilled in pipeline automation, containerization, and infrastructure as code',
+      title: 'Security & DevOps',
+      description: 'OAuth2/OIDC/SAML via Keycloak, CI/CD pipelines, Java migrations, and CVE remediation',
     },
   ];
 
@@ -52,17 +52,19 @@ export default function About() {
               className="space-y-4"
             >
               <p className="text-slate-300 text-lg leading-relaxed">
-                Backend Engineer with <span className="text-blue-400 font-semibold">3 years of experience</span> building
-                high-performance distributed systems for fintech and logistics industries.
+                Backend Engineer with <span className="text-blue-400 font-semibold">3+ years of experience</span> building
+                high-performance microservices and distributed systems with a proven track record of delivering scalable solutions.
               </p>
               <p className="text-slate-300 text-lg leading-relaxed">
-                Specialized in designing and implementing scalable microservices architectures using Spring Boot,
-                with expertise in OAuth integration via Keycloak, service mesh implementation with Istio,
-                and cloud-native development on Kubernetes.
+                Specialized in <span className="text-emerald-400 font-semibold">Java/Spring Boot ecosystems</span>,
+                event-driven architectures (Kafka, Kinesis), and security-focused development including
+                Java 8→17 migrations and CVE remediation.
               </p>
               <p className="text-slate-300 text-lg leading-relaxed">
-                Currently leading Storm migration initiatives at Smarsh, while continuously optimizing
-                API performance and building event-driven systems from the ground up.
+                Delivered impactful solutions: <span className="text-purple-400 font-semibold">55% sales increase</span> through
+                FMCSA integration, <span className="text-purple-400 font-semibold">30% operational efficiency</span> gains
+                via geofence automation, and <span className="text-purple-400 font-semibold">20x build time improvement</span> through
+                Gradle migration.
               </p>
             </motion.div>
 
@@ -75,28 +77,28 @@ export default function About() {
               <h3 className="text-xl font-semibold text-white mb-4">Key Achievements</h3>
               <ul className="space-y-3 text-slate-300">
                 <li className="flex items-start">
-                  <span className="text-blue-400 mr-2">▹</span>
-                  <span>Migrated legacy systems from Java 8 to Java 17</span>
+                  <span className="text-emerald-400 mr-2">▹</span>
+                  <span><span className="text-emerald-400 font-semibold">55%</span> sales increase via FMCSA/USDOT integration</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-400 mr-2">▹</span>
-                  <span>Integrated OAuth authentication using Keycloak</span>
+                  <span className="text-emerald-400 mr-2">▹</span>
+                  <span><span className="text-emerald-400 font-semibold">30%</span> efficiency gains through geofence automation</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-400 mr-2">▹</span>
-                  <span>Implemented Istio service mesh over Kubernetes</span>
+                  <span className="text-emerald-400 mr-2">▹</span>
+                  <span><span className="text-emerald-400 font-semibold">20x</span> faster builds: Maven → Gradle migration</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-400 mr-2">▹</span>
-                  <span>Reduced API latencies through optimization</span>
+                  <span className="text-emerald-400 mr-2">▹</span>
+                  <span><span className="text-emerald-400 font-semibold">10</span> microservices migrated Java 8 → 17</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-400 mr-2">▹</span>
-                  <span>Built event-driven microservices with AWS Kinesis</span>
+                  <span className="text-emerald-400 mr-2">▹</span>
+                  <span>Unified auth layer: OIDC/SAML via Keycloak</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-400 mr-2">▹</span>
-                  <span>Leading Storm migration at Smarsh</span>
+                  <span className="text-emerald-400 mr-2">▹</span>
+                  <span>Redis rate limiting for DoS prevention</span>
                 </li>
               </ul>
             </motion.div>
