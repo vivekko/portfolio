@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Key, Database, Activity, AlertTriangle, Brain } from 'lucide-react';
 import IdempotencyVisualizer from './IdempotencyVisualizer';
 import DatabaseShardingVisualizer from './DatabaseShardingVisualizer';
 import KafkaVisualizer from './KafkaVisualizer';
@@ -14,107 +13,73 @@ type Tab = 'llm' | 'idempotency' | 'sharding' | 'kafka' | 'failure';
 interface TabConfig {
     id: Tab;
     label: string;
-    icon: React.ReactNode;
-    gradient: string;
     description: string;
 }
 
 const TABS: TabConfig[] = [
-    {
-        id: 'llm',
-        label: 'LLM Agents',
-        icon: <Brain className="w-5 h-5" />,
-        gradient: 'from-pink-500 to-purple-600',
-        description: 'AI reasoning chains & tool use',
-    },
-    {
-        id: 'idempotency',
-        label: 'Idempotency Keys',
-        icon: <Key className="w-5 h-5" />,
-        gradient: 'from-purple-500 to-pink-500',
-        description: 'Safe request deduplication',
-    },
-    {
-        id: 'sharding',
-        label: 'Database Sharding',
-        icon: <Database className="w-5 h-5" />,
-        gradient: 'from-blue-500 to-cyan-500',
-        description: 'Horizontal scalability',
-    },
-    {
-        id: 'kafka',
-        label: 'Event Streaming',
-        icon: <Activity className="w-5 h-5" />,
-        gradient: 'from-emerald-500 to-teal-500',
-        description: 'Real-time Kafka cluster',
-    },
-    {
-        id: 'failure',
-        label: 'Failure Modes',
-        icon: <AlertTriangle className="w-5 h-5" />,
-        gradient: 'from-orange-500 to-red-500',
-        description: 'Circuit breakers & resilience patterns',
-    },
+    { id: 'llm', label: 'LLM agents', description: 'Reasoning chains and tool use' },
+    { id: 'idempotency', label: 'Idempotency keys', description: 'Safe request deduplication' },
+    { id: 'sharding', label: 'Database sharding', description: 'Horizontal scaling under load' },
+    { id: 'kafka', label: 'Event streaming', description: 'A Kafka cluster in real time' },
+    { id: 'failure', label: 'Failure modes', description: 'Circuit breakers and resilience' },
 ];
 
 export default function VisualizerTabs() {
     const [activeTab, setActiveTab] = useState<Tab>('llm');
+    const active = TABS.find((t) => t.id === activeTab);
 
     return (
         <div className="w-full">
-            {/* Tab Navigation */}
-            <div className="mb-8">
-                <div className="flex flex-wrap justify-center gap-3">
+            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div
+                    role="tablist"
+                    className="flex gap-1 overflow-x-auto border-b border-line"
+                >
                     {TABS.map((tab) => (
-                        <motion.button
+                        <button
                             key={tab.id}
+                            role="tab"
+                            aria-selected={activeTab === tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`relative px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-3 ${activeTab === tab.id
-                                ? 'text-white shadow-lg'
-                                : 'text-slate-400 hover:text-white bg-slate-800/50 hover:bg-slate-800 border border-slate-700'
-                                }`}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                            data-cursor={activeTab === tab.id ? undefined : 'run'}
+                            className={`relative whitespace-nowrap px-4 py-3 font-mono text-xs transition-colors duration-300 ${
+                                activeTab === tab.id ? 'text-bone' : 'text-mist hover:text-bone'
+                            }`}
                         >
+                            {tab.label}
                             {activeTab === tab.id && (
-                                <motion.div
-                                    layoutId="activeTabBg"
-                                    className={`absolute inset-0 bg-gradient-to-r ${tab.gradient} rounded-xl`}
-                                    initial={false}
-                                    transition={{ type: 'spring', duration: 0.5, bounce: 0.2 }}
+                                <motion.span
+                                    layoutId="model-tab-underline"
+                                    className="absolute inset-x-2 -bottom-px h-px bg-signal"
+                                    transition={{ type: 'spring', stiffness: 400, damping: 35 }}
                                 />
                             )}
-                            <span className="relative z-10 flex items-center gap-2">
-                                {tab.icon}
-                                <span className="hidden sm:inline">{tab.label}</span>
-                            </span>
-                        </motion.button>
+                        </button>
                     ))}
                 </div>
-
-                {/* Active Tab Description */}
                 <AnimatePresence mode="wait">
                     <motion.p
                         key={activeTab}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="text-center text-slate-500 text-sm mt-4"
+                        className="shrink-0 text-xs text-mist"
                     >
-                        {TABS.find(t => t.id === activeTab)?.description}
+                        {active?.description}
                     </motion.p>
                 </AnimatePresence>
             </div>
 
-            {/* Tab Content */}
+            {/* the model runs inside a framed screen */}
             <AnimatePresence mode="wait">
                 <motion.div
                     key={activeTab}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden rounded-lg border border-line"
                 >
                     {activeTab === 'llm' && <LLMAgentVisualizer />}
                     {activeTab === 'idempotency' && <IdempotencyVisualizer />}

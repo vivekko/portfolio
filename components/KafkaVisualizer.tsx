@@ -20,16 +20,16 @@ interface ConsumerLag {
 }
 
 const TOPICS = [
-  { name: 'payment-events', partitions: 3, color: '#10b981' },
-  { name: 'order-events', partitions: 3, color: '#3b82f6' },
-  { name: 'user-events', partitions: 2, color: '#f59e0b' },
+  { name: 'payment-events', partitions: 3, color: '#86B786' },
+  { name: 'order-events', partitions: 3, color: '#6FA8B0' },
+  { name: 'user-events', partitions: 2, color: '#D9A441' },
 ];
 
 const CONSUMER_GROUPS = [
-  { id: 'payment-processor', topics: ['payment-events'], color: '#10b981' },
-  { id: 'order-service', topics: ['order-events'], color: '#3b82f6' },
-  { id: 'analytics-service', topics: ['payment-events', 'order-events', 'user-events'], color: '#8b5cf6' },
-  { id: 'notification-service', topics: ['user-events'], color: '#f59e0b' },
+  { id: 'payment-processor', topics: ['payment-events'], color: '#86B786' },
+  { id: 'order-service', topics: ['order-events'], color: '#6FA8B0' },
+  { id: 'analytics-service', topics: ['payment-events', 'order-events', 'user-events'], color: '#B08FC9' },
+  { id: 'notification-service', topics: ['user-events'], color: '#D9A441' },
 ];
 
 const PRODUCERS = [
@@ -127,20 +127,20 @@ export default function KafkaVisualizer() {
   };
 
   return (
-    <div className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
+    <div className="w-full bg-[#0D181B] rounded-md p-8 border border-[rgba(232,228,215,0.10)]">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-              <Activity className="w-8 h-8 text-emerald-400" />
+            <h2 className="text-3xl font-bold text-[#E8E4D7] mb-2 flex items-center gap-3">
+              <Activity className="w-8 h-8 text-[#86B786]" />
               Live Kafka Cluster
             </h2>
-            <p className="text-slate-400">Real-time event streaming visualization</p>
+            <p className="text-[#A8B8B4]">Real-time event streaming visualization</p>
           </div>
           <button
             onClick={triggerRebalance}
-            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-[#E3B04B] hover:bg-[#EDC06A] text-[#0B1517] font-medium rounded-md transition-colors flex items-center gap-2"
           >
             <Zap className="w-4 h-4" />
             Trigger Rebalance
@@ -150,54 +150,54 @@ export default function KafkaVisualizer() {
         {/* Metrics Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">Total Messages</p>
-                <p className="text-2xl font-bold text-white">{metrics.totalMessages.toLocaleString()}</p>
+                <p className="text-[#A8B8B4] text-sm">Total Messages</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.totalMessages.toLocaleString()}</p>
               </div>
-              <Database className="w-8 h-8 text-blue-400" />
+              <Database className="w-8 h-8 text-[#6FA8B0]" />
             </div>
           </motion.div>
 
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">Throughput</p>
-                <p className="text-2xl font-bold text-white">{metrics.messagesPerSec}/s</p>
+                <p className="text-[#A8B8B4] text-sm">Throughput</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.messagesPerSec}/s</p>
               </div>
-              <TrendingUp className="w-8 h-8 text-emerald-400" />
+              <TrendingUp className="w-8 h-8 text-[#86B786]" />
             </div>
           </motion.div>
 
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">Avg Latency</p>
-                <p className="text-2xl font-bold text-white">{metrics.avgLatency.toFixed(0)}ms</p>
+                <p className="text-[#A8B8B4] text-sm">Avg Latency</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.avgLatency.toFixed(0)}ms</p>
               </div>
-              <Activity className="w-8 h-8 text-yellow-400" />
+              <Activity className="w-8 h-8 text-[#D9A441]" />
             </div>
           </motion.div>
 
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">Consumer Groups</p>
-                <p className="text-2xl font-bold text-white">{CONSUMER_GROUPS.length}</p>
+                <p className="text-[#A8B8B4] text-sm">Consumer Groups</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{CONSUMER_GROUPS.length}</p>
               </div>
-              <Users className="w-8 h-8 text-purple-400" />
+              <Users className="w-8 h-8 text-[#E3B04B]" />
             </div>
           </motion.div>
         </div>
@@ -206,10 +206,10 @@ export default function KafkaVisualizer() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-3 flex items-center gap-2 mb-4"
+            className="bg-[#D9A441]/10 border border-[#D9A441]/50 rounded-md p-3 flex items-center gap-2 mb-4"
           >
-            <AlertCircle className="w-5 h-5 text-yellow-400" />
-            <span className="text-yellow-200">Consumer group rebalancing in progress...</span>
+            <AlertCircle className="w-5 h-5 text-[#D9A441]" />
+            <span className="text-[#D9A441]">Consumer group rebalancing in progress...</span>
           </motion.div>
         )}
       </div>
@@ -218,26 +218,26 @@ export default function KafkaVisualizer() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
         {/* Producers */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[#86B786] animate-pulse" />
             Producers
           </h3>
           <div className="space-y-3">
             {PRODUCERS.map((producer) => (
               <motion.div
                 key={producer.id}
-                className="bg-slate-800/70 rounded-lg p-4 border border-slate-700"
-                whileHover={{ scale: 1.02, borderColor: '#10b981' }}
+                className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
+                whileHover={{ scale: 1.02, borderColor: '#86B786' }}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-white font-medium">{producer.id}</span>
-                  <span className="text-xs px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded">
+                  <span className="text-[#E8E4D7] font-medium">{producer.id}</span>
+                  <span className="text-xs px-2 py-1 bg-[#86B786]/20 text-[#86B786] rounded">
                     {producer.rate}/s
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-xs text-slate-400">→ {producer.topic}</span>
+                  <div className="w-1 h-1 rounded-full bg-[#86B786] animate-pulse" />
+                  <span className="text-xs text-[#A8B8B4]">→ {producer.topic}</span>
                 </div>
               </motion.div>
             ))}
@@ -246,23 +246,23 @@ export default function KafkaVisualizer() {
 
         {/* Topics */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Database className="w-5 h-5 text-blue-400" />
+          <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+            <Database className="w-5 h-5 text-[#6FA8B0]" />
             Topics
           </h3>
           <div className="space-y-3">
             {TOPICS.map((topic) => (
               <motion.div
                 key={topic.name}
-                className={`bg-slate-800/70 rounded-lg p-4 border cursor-pointer transition-colors ${
-                  selectedTopic === topic.name ? 'border-blue-400' : 'border-slate-700'
+                className={`bg-[#132124] rounded-md p-4 border cursor-pointer transition-colors ${
+                  selectedTopic === topic.name ? 'border-[#6FA8B0]' : 'border-[rgba(232,228,215,0.10)]'
                 }`}
                 onClick={() => setSelectedTopic(selectedTopic === topic.name ? null : topic.name)}
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white font-medium">{topic.name}</span>
-                  <span className="text-xs px-2 py-1 bg-blue-500/20 text-blue-300 rounded">
+                  <span className="text-[#E8E4D7] font-medium">{topic.name}</span>
+                  <span className="text-xs px-2 py-1 bg-[#6FA8B0]/20 text-[#6FA8B0] rounded">
                     {topic.partitions} partitions
                   </span>
                 </div>
@@ -276,10 +276,10 @@ export default function KafkaVisualizer() {
                     const lag = consumerLag.find(l => l.partition === idx)?.lag || 0;
 
                     return (
-                      <div key={idx} className="bg-slate-900/50 rounded p-2">
+                      <div key={idx} className="bg-[#0B1517] rounded p-2">
                         <div className="flex items-center justify-between text-xs gap-2">
                           <div className="flex items-center gap-2 min-w-0 flex-1">
-                            <span className="text-slate-400 shrink-0">Partition {idx}</span>
+                            <span className="text-[#A8B8B4] shrink-0">Partition {idx}</span>
                             <div className="flex gap-1 min-h-[8px] h-2 items-center flex-1">
                               <AnimatePresence mode="popLayout">
                                 {partitionMessages.slice(0, 8).map((msg) => (
@@ -296,7 +296,7 @@ export default function KafkaVisualizer() {
                               </AnimatePresence>
                             </div>
                           </div>
-                          <span className={`shrink-0 ${lag > 100 ? 'text-red-400' : 'text-emerald-400'}`}>
+                          <span className={`shrink-0 ${lag > 100 ? 'text-[#C9705C]' : 'text-[#86B786]'}`}>
                             Lag: {lag}
                           </span>
                         </div>
@@ -311,35 +311,35 @@ export default function KafkaVisualizer() {
 
         {/* Consumers */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5 text-purple-400" />
+          <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+            <Users className="w-5 h-5 text-[#E3B04B]" />
             Consumer Groups
           </h3>
           <div className="space-y-3">
             {CONSUMER_GROUPS.map((group) => (
               <motion.div
                 key={group.id}
-                className="bg-slate-800/70 rounded-lg p-4 border border-slate-700"
+                className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
                 whileHover={{ scale: 1.02, borderColor: group.color }}
                 animate={isRebalancing ? { opacity: [1, 0.5, 1] } : {}}
                 transition={{ duration: 0.5, repeat: isRebalancing ? Infinity : 0 }}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-white font-medium">{group.id}</span>
-                  <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                  <span className="text-[#E8E4D7] font-medium">{group.id}</span>
+                  <div className="w-2 h-2 rounded-full bg-[#E3B04B] animate-pulse" />
                 </div>
                 <div className="space-y-1">
                   {group.topics.map((topic) => (
                     <div key={topic} className="flex items-center gap-2">
-                      <div className="w-1 h-1 rounded-full bg-purple-400" />
-                      <span className="text-xs text-slate-400">{topic}</span>
+                      <div className="w-1 h-1 rounded-full bg-[#E3B04B]" />
+                      <span className="text-xs text-[#A8B8B4]">{topic}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-3 pt-3 border-t border-slate-700">
+                <div className="mt-3 pt-3 border-t border-[rgba(232,228,215,0.10)]">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-400">Status</span>
-                    <span className="text-emerald-400">Active</span>
+                    <span className="text-[#A8B8B4]">Status</span>
+                    <span className="text-[#86B786]">Active</span>
                   </div>
                 </div>
               </motion.div>
@@ -349,9 +349,9 @@ export default function KafkaVisualizer() {
       </div>
 
       {/* Live Message Flow */}
-      <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700">
-        <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-          <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+      <div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]">
+        <h3 className="text-sm font-semibold text-[#E8E4D7] mb-3 flex items-center gap-2">
+          <Activity className="w-4 h-4 text-[#86B786] animate-pulse" />
           Live Message Stream
         </h3>
         <div className="space-y-1 h-20 flex flex-col">
@@ -365,15 +365,15 @@ export default function KafkaVisualizer() {
                 className="flex items-center gap-3 text-xs py-1"
               >
                 <span className={`px-2 py-1 rounded font-mono ${
-                  msg.status === 'producing' ? 'bg-yellow-500/20 text-yellow-300' :
-                  msg.status === 'in-topic' ? 'bg-blue-500/20 text-blue-300' :
-                  msg.status === 'consuming' ? 'bg-purple-500/20 text-purple-300' :
-                  'bg-emerald-500/20 text-emerald-300'
+                  msg.status === 'producing' ? 'bg-[#D9A441]/20 text-[#D9A441]' :
+                  msg.status === 'in-topic' ? 'bg-[#6FA8B0]/20 text-[#6FA8B0]' :
+                  msg.status === 'consuming' ? 'bg-[#E3B04B]/20 text-[#E3B04B]' :
+                  'bg-[#86B786]/20 text-[#86B786]'
                 }`}>
                   {msg.status}
                 </span>
-                <span className="text-slate-400">{msg.data}</span>
-                <span className="text-slate-500 ml-auto">partition:{msg.partition}</span>
+                <span className="text-[#A8B8B4]">{msg.data}</span>
+                <span className="text-[#8CA3A0] ml-auto">partition:{msg.partition}</span>
               </motion.div>
             ))}
           </AnimatePresence>
@@ -381,7 +381,7 @@ export default function KafkaVisualizer() {
       </div>
 
       {/* Info Footer */}
-      <div className="mt-6 text-center text-sm text-slate-400">
+      <div className="mt-6 text-center text-sm text-[#A8B8B4]">
         <p>Simulating Kafka cluster with {TOPICS.reduce((acc, t) => acc + t.partitions, 0)} partitions across {TOPICS.length} topics</p>
       </div>
     </div>

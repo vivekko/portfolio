@@ -2,55 +2,151 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ink: #0b1517;
+  --panel: #101d20;
+  --bone: #e8e4d7;
+  --mist: #8ca3a0;
+  --signal: #e3b04b;
+  --line: rgba(232, 228, 215, 0.1);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 body {
-  background: #020617;
-  color: #f1f5f9;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-satoshi), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-
-/* Smooth animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+/* The reticle replaces the native cursor on precise pointers only */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body.has-reticle,
+  body.has-reticle * {
+    cursor: none !important;
   }
-  to {
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: #22383c;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2e4a4f;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+/* Display type: Clash Display */
+.type-display {
+  font-family: var(--font-clash), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 0.94;
+}
+
+.type-subdisplay {
+  font-family: var(--font-clash), system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.08;
+}
+
+/* Animated underline for text links */
+.link-sweep {
+  position: relative;
+}
+.link-sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-sweep:hover::after,
+.link-sweep:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* rm -rf /: the whole page falls over, then the backup restore pulls it back */
+@keyframes sys-crash {
+  0% {
+    transform: none;
+    filter: none;
     opacity: 1;
   }
+  12% {
+    transform: skewX(1.5deg) translateX(-8px);
+  }
+  26% {
+    transform: rotate(-1.4deg) translateY(14px);
+    filter: grayscale(0.6);
+  }
+  42% {
+    transform: rotate(2.2deg) translateY(42vh) scale(0.96);
+    opacity: 0.35;
+    filter: grayscale(1) blur(2px);
+  }
+  58% {
+    transform: rotate(2.2deg) translateY(42vh) scale(0.96);
+    opacity: 0.35;
+    filter: grayscale(1) blur(2px);
+  }
+  82% {
+    transform: translateY(-10px) scale(1);
+    opacity: 1;
+    filter: none;
+  }
+  100% {
+    transform: none;
+  }
+}
+body.sys-crash {
+  animation: sys-crash 2.9s cubic-bezier(0.3, 0, 0.2, 1);
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-in;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

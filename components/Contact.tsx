@@ -1,126 +1,109 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Mail, Linkedin, Github, MapPin, Code2 } from 'lucide-react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
-export default function Contact() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+function LocalTime() {
+  const [time, setTime] = useState('');
+  useEffect(() => {
+    const tick = () =>
+      setTime(
+        new Intl.DateTimeFormat('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          timeZone: 'Asia/Kolkata',
+        }).format(new Date())
+      );
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <span className="font-mono text-xs text-mist" suppressHydrationWarning>
+      {time ? `${time} IST` : ''}
+    </span>
+  );
+}
 
-  const contactLinks = [
-    {
-      icon: Mail,
-      label: 'Email',
-      value: 'vivekojha961@gmail.com',
-      href: 'mailto:vivekojha961@gmail.com',
-      color: 'from-red-500 to-orange-500',
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      value: 'vivek-ojha',
-      href: 'https://www.linkedin.com/in/vivek-ojha-a540a9172/',
-      color: 'from-blue-500 to-blue-600',
-    },
-    {
-      icon: Github,
-      label: 'GitHub',
-      value: '@vivekko',
-      href: 'https://github.com/vivekko',
-      color: 'from-slate-500 to-slate-700',
-    },
-  ];
+// The email pulls gently toward the cursor while hovered.
+function MagneticEmail() {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const x = useSpring(mx, { stiffness: 180, damping: 18 });
+  const y = useSpring(my, { stiffness: 180, damping: 18 });
+
+  const onMove = (e: React.PointerEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    mx.set((e.clientX - rect.left - rect.width / 2) * 0.08);
+    my.set((e.clientY - rect.top - rect.height / 2) * 0.25);
+  };
+  const onLeave = () => {
+    mx.set(0);
+    my.set(0);
+  };
 
   return (
-    <section id="contact" className="py-20 bg-slate-950" ref={ref}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Let&apos;s Connect
-          </h2>
-          <p className="text-slate-400 text-lg mb-12 max-w-2xl mx-auto">
-            Open to new opportunities and interesting projects. Feel free to reach out if you&apos;d like to discuss backend architecture, microservices, or potential collaborations.
-          </p>
+    <motion.a
+      ref={ref}
+      href="mailto:vivekojha961@gmail.com"
+      data-cursor="write"
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+      style={{ x, y }}
+      className="type-display link-sweep inline-block break-all text-[clamp(1.6rem,4.6vw,4rem)] text-bone transition-colors duration-300 hover:text-signal"
+    >
+      vivekojha961@gmail.com
+    </motion.a>
+  );
+}
 
-          {/* Contact Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {contactLinks.map((contact, index) => (
-              <motion.a
-                key={index}
-                href={contact.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                className="group bg-slate-900 rounded-xl p-6 border border-slate-800 hover:border-blue-500 transition-all duration-300 hover:scale-105"
-              >
-                <div className={`w-12 h-12 mx-auto mb-4 rounded-lg bg-gradient-to-br ${contact.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                  <contact.icon className="text-white" size={24} />
-                </div>
-                <h3 className="text-white font-semibold mb-2">{contact.label}</h3>
-                <p className="text-slate-400 text-sm break-all">{contact.value}</p>
-              </motion.a>
-            ))}
-          </div>
+export default function Contact() {
+  return (
+    <section id="contact" className="relative z-10 border-t border-line bg-ink">
+      <div className="mx-auto max-w-6xl px-6 pb-10 pt-28 lg:px-8 lg:pt-36">
+        <p className="mb-6 font-mono text-xs text-mist">
+          open to backend and platform roles
+        </p>
+        <h2 className="type-subdisplay mb-10 max-w-2xl text-3xl text-bone sm:text-4xl">
+          Have a system that needs to scale — or one that already fell over?
+        </h2>
 
-          {/* Status Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="inline-flex items-center gap-2 bg-slate-900 rounded-full px-6 py-3 border border-slate-800 mb-8"
+        <MagneticEmail />
+
+        <div className="mt-14 flex items-center gap-8">
+          <a
+            href="https://github.com/vivekko"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="open"
+            className="link-sweep text-sm text-mist transition-colors duration-300 hover:text-bone"
           >
-            <div className="relative">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping"></div>
-            </div>
-            <span className="text-slate-300 font-medium">Software Engineer II @ Smarsh • Open to opportunities</span>
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-8 border border-blue-500"
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/vivek-ojha-a540a9172/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="open"
+            className="link-sweep text-sm text-mist transition-colors duration-300 hover:text-bone"
           >
-            <Code2 className="w-12 h-12 text-white mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-white mb-3">
-              Let&apos;s Build Something Great
-            </h3>
-            <p className="text-blue-100 mb-6">
-              Interested in discussing backend architecture, microservices patterns, or exploring opportunities at innovative companies? Let&apos;s connect!
-            </p>
-            <a
-              href="mailto:vivekojha961@gmail.com"
-              className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors duration-300"
-            >
-              Get In Touch
-            </a>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Footer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.8, delay: 1 }}
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-slate-800"
-      >
-        <div className="text-center text-slate-500">
-          <p className="mb-2">Built with Next.js, Three.js & Framer Motion</p>
-          <p>&copy; {new Date().getFullYear()} Vivek Ojha. All rights reserved.</p>
+            LinkedIn
+          </a>
         </div>
-      </motion.div>
+
+        <footer className="mt-24 flex flex-col gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-mist">
+            © {new Date().getFullYear()} Vivek Ojha. Built with Next.js and Framer Motion.
+          </p>
+          <div className="flex items-center gap-4">
+            <span className="text-xs text-mist">Pune, India</span>
+            <LocalTime />
+          </div>
+        </footer>
+      </div>
     </section>
   );
 }

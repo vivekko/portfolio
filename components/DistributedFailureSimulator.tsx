@@ -72,9 +72,9 @@ export default function DistributedFailureSimulator() {
     // Get circuit state color
     const getCircuitColor = (state: CircuitState) => {
         switch (state) {
-            case 'CLOSED': return 'bg-emerald-500';
-            case 'OPEN': return 'bg-red-500';
-            case 'HALF_OPEN': return 'bg-yellow-500';
+            case 'CLOSED': return 'bg-[#86B786]';
+            case 'OPEN': return 'bg-[#C9705C]';
+            case 'HALF_OPEN': return 'bg-[#D9A441]';
         }
     };
 
@@ -252,23 +252,23 @@ export default function DistributedFailureSimulator() {
     }, []);
 
     return (
-        <div className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
+        <div className="w-full bg-[#0D181B] rounded-md p-8 border border-[rgba(232,228,215,0.10)]">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-                            <AlertTriangle className="w-8 h-8 text-orange-400" />
+                        <h2 className="text-3xl font-bold text-[#E8E4D7] mb-2 flex items-center gap-3">
+                            <AlertTriangle className="w-8 h-8 text-[#D9A441]" />
                             Failure Modes Simulator
                         </h2>
-                        <p className="text-slate-400">Click any service to inject failures and observe resilience patterns</p>
+                        <p className="text-[#A8B8B4]">Click any service to inject failures and observe resilience patterns</p>
                     </div>
                     <div className="flex gap-2">
                         <button
                             onClick={() => setIsRunning(!isRunning)}
-                            className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-2 ${isRunning
-                                    ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-                                    : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                            className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 font-medium ${isRunning
+                                    ? 'bg-[#D9A441] hover:bg-[#E3B04B] text-[#0B1517]'
+                                    : 'bg-[#86B786] hover:bg-[#9BC79B] text-[#0B1517]'
                                 }`}
                         >
                             {isRunning ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -276,7 +276,7 @@ export default function DistributedFailureSimulator() {
                         </button>
                         <button
                             onClick={resetSimulation}
-                            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors flex items-center gap-2"
+                            className="px-4 py-2 bg-[#132124] text-[#A8B8B4] border border-[rgba(232,228,215,0.10)] hover:text-[#E8E4D7] rounded-md transition-colors flex items-center gap-2"
                         >
                             <RotateCcw className="w-4 h-4" />
                             Reset
@@ -286,45 +286,45 @@ export default function DistributedFailureSimulator() {
 
                 {/* Metrics Dashboard */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Total Requests</p>
-                                <p className="text-2xl font-bold text-white">{metrics.totalRequests}</p>
+                                <p className="text-[#A8B8B4] text-sm">Total Requests</p>
+                                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.totalRequests}</p>
                             </div>
-                            <Activity className="w-8 h-8 text-blue-400" />
+                            <Activity className="w-8 h-8 text-[#6FA8B0]" />
                         </div>
                     </motion.div>
 
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Success Rate</p>
-                                <p className={`text-2xl font-bold ${metrics.successRate > 80 ? 'text-emerald-400' : metrics.successRate > 50 ? 'text-yellow-400' : 'text-red-400'}`}>
+                                <p className="text-[#A8B8B4] text-sm">Success Rate</p>
+                                <p className={`text-2xl font-bold ${metrics.successRate > 80 ? 'text-[#86B786]' : metrics.successRate > 50 ? 'text-[#D9A441]' : 'text-[#C9705C]'}`}>
                                     {metrics.successRate}%
                                 </p>
                             </div>
-                            <TrendingUp className="w-8 h-8 text-emerald-400" />
+                            <TrendingUp className="w-8 h-8 text-[#86B786]" />
                         </div>
                     </motion.div>
 
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Circuit Breaks</p>
-                                <p className="text-2xl font-bold text-orange-400">{metrics.circuitBreaks}</p>
+                                <p className="text-[#A8B8B4] text-sm">Circuit Breaks</p>
+                                <p className="text-2xl font-bold text-[#D9A441]">{metrics.circuitBreaks}</p>
                             </div>
-                            <AlertCircle className="w-8 h-8 text-orange-400" />
+                            <AlertCircle className="w-8 h-8 text-[#D9A441]" />
                         </div>
                     </motion.div>
 
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Retries</p>
-                                <p className="text-2xl font-bold text-purple-400">{metrics.retries}</p>
+                                <p className="text-[#A8B8B4] text-sm">Retries</p>
+                                <p className="text-2xl font-bold text-[#E3B04B]">{metrics.retries}</p>
                             </div>
-                            <RefreshCw className="w-8 h-8 text-purple-400" />
+                            <RefreshCw className="w-8 h-8 text-[#E3B04B]" />
                         </div>
                     </motion.div>
                 </div>
@@ -333,21 +333,21 @@ export default function DistributedFailureSimulator() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Service Architecture */}
                 <div>
-                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                        <Server className="w-5 h-5 text-blue-400" />
+                    <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+                        <Server className="w-5 h-5 text-[#6FA8B0]" />
                         Microservice Architecture
-                        <span className="text-xs text-slate-500 ml-2">(click to inject failure)</span>
+                        <span className="text-xs text-[#8CA3A0] ml-2">(click to inject failure)</span>
                     </h3>
                     <div className="space-y-3">
                         {services.map((service) => (
                             <motion.div
                                 key={service.id}
                                 onClick={() => injectFailure(service.id)}
-                                className={`bg-slate-800/70 rounded-lg p-4 border-2 cursor-pointer transition-all ${service.id === failingServiceId
-                                        ? 'border-red-500 bg-red-500/10'
+                                className={`bg-[#132124] rounded-md p-4 border-2 cursor-pointer transition-all ${service.id === failingServiceId
+                                        ? 'border-[#C9705C] bg-[#C9705C]/10'
                                         : service.circuitState === 'OPEN'
-                                            ? 'border-orange-500'
-                                            : 'border-slate-700 hover:border-slate-500'
+                                            ? 'border-[#D9A441]'
+                                            : 'border-[rgba(232,228,215,0.10)] hover:border-[rgba(232,228,215,0.22)]'
                                     }`}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -358,16 +358,16 @@ export default function DistributedFailureSimulator() {
                             >
                                 <div className="flex items-center justify-between mb-3">
                                     <div className="flex items-center gap-3">
-                                        <div className={`p-2 rounded-lg ${service.status === 'healthy' ? 'bg-emerald-500/20 text-emerald-400' :
-                                                service.status === 'degraded' ? 'bg-yellow-500/20 text-yellow-400' :
-                                                    'bg-red-500/20 text-red-400'
+                                        <div className={`p-2 rounded-md ${service.status === 'healthy' ? 'bg-[#86B786]/20 text-[#86B786]' :
+                                                service.status === 'degraded' ? 'bg-[#D9A441]/20 text-[#D9A441]' :
+                                                    'bg-[#C9705C]/20 text-[#C9705C]'
                                             }`}>
                                             {service.icon}
                                         </div>
                                         <div>
-                                            <span className="text-white font-medium">{service.name}</span>
+                                            <span className="text-[#E8E4D7] font-medium">{service.name}</span>
                                             {service.id === failingServiceId && (
-                                                <span className="text-xs text-red-400 ml-2 animate-pulse">⚠ Failing</span>
+                                                <span className="text-xs text-[#C9705C] ml-2 animate-pulse">⚠ Failing</span>
                                             )}
                                         </div>
                                     </div>
@@ -375,13 +375,13 @@ export default function DistributedFailureSimulator() {
                                     {/* Circuit Breaker State */}
                                     <div className="flex items-center gap-2">
                                         <div className={`w-3 h-3 rounded-full ${getCircuitColor(service.circuitState)}`} />
-                                        <span className="text-xs text-slate-400">{service.circuitState.replace('_', '-')}</span>
+                                        <span className="text-xs text-[#A8B8B4]">{service.circuitState.replace('_', '-')}</span>
                                     </div>
                                 </div>
 
                                 {/* Bulkhead Visualization */}
                                 <div className="mb-2">
-                                    <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                                    <div className="flex items-center justify-between text-xs text-[#A8B8B4] mb-1">
                                         <span>Bulkhead Pool</span>
                                         <span>{service.bulkheadUsed}/{service.bulkheadCapacity}</span>
                                     </div>
@@ -389,7 +389,7 @@ export default function DistributedFailureSimulator() {
                                         {Array.from({ length: service.bulkheadCapacity }).map((_, idx) => (
                                             <div
                                                 key={idx}
-                                                className={`h-2 flex-1 rounded-sm ${idx < service.bulkheadUsed ? 'bg-blue-500' : 'bg-slate-700'
+                                                className={`h-2 flex-1 rounded-sm ${idx < service.bulkheadUsed ? 'bg-[#6FA8B0]' : 'bg-[#0B1517]'
                                                     }`}
                                             />
                                         ))}
@@ -398,8 +398,8 @@ export default function DistributedFailureSimulator() {
 
                                 {/* Failure/Success Counts */}
                                 <div className="flex items-center justify-between text-xs">
-                                    <span className="text-emerald-400">✓ {service.successCount}</span>
-                                    <span className="text-red-400">✗ {service.failureCount}</span>
+                                    <span className="text-[#86B786]">✓ {service.successCount}</span>
+                                    <span className="text-[#C9705C]">✗ {service.failureCount}</span>
                                 </div>
                             </motion.div>
                         ))}
@@ -410,38 +410,38 @@ export default function DistributedFailureSimulator() {
                 <div className="space-y-6">
                     {/* Circuit Breaker State Machine */}
                     <div>
-                        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                            <Shield className="w-5 h-5 text-emerald-400" />
+                        <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+                            <Shield className="w-5 h-5 text-[#86B786]" />
                             Circuit Breaker Pattern
                         </h3>
-                        <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
+                        <div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]">
                             <div className="flex items-center justify-between gap-2 mb-4">
                                 {(['CLOSED', 'OPEN', 'HALF_OPEN'] as CircuitState[]).map((state, idx) => {
                                     const activeServices = services.filter(s => s.circuitState === state);
                                     return (
                                         <motion.div
                                             key={state}
-                                            className={`flex-1 p-3 rounded-lg text-center ${state === 'CLOSED' ? 'bg-emerald-500/20 border border-emerald-500/50' :
-                                                    state === 'OPEN' ? 'bg-red-500/20 border border-red-500/50' :
-                                                        'bg-yellow-500/20 border border-yellow-500/50'
+                                            className={`flex-1 p-3 rounded-md text-center ${state === 'CLOSED' ? 'bg-[#86B786]/20 border border-[#86B786]/50' :
+                                                    state === 'OPEN' ? 'bg-[#C9705C]/20 border border-[#C9705C]/50' :
+                                                        'bg-[#D9A441]/20 border border-[#D9A441]/50'
                                                 }`}
                                             animate={activeServices.length > 0 ? { scale: [1, 1.02, 1] } : {}}
                                             transition={{ duration: 1, repeat: Infinity }}
                                         >
-                                            <div className={`text-sm font-bold mb-1 ${state === 'CLOSED' ? 'text-emerald-400' :
-                                                    state === 'OPEN' ? 'text-red-400' :
-                                                        'text-yellow-400'
+                                            <div className={`text-sm font-bold mb-1 ${state === 'CLOSED' ? 'text-[#86B786]' :
+                                                    state === 'OPEN' ? 'text-[#C9705C]' :
+                                                        'text-[#D9A441]'
                                                 }`}>
                                                 {state.replace('_', '-')}
                                             </div>
-                                            <div className="text-xs text-slate-400">
+                                            <div className="text-xs text-[#A8B8B4]">
                                                 {activeServices.length} services
                                             </div>
                                         </motion.div>
                                     );
                                 })}
                             </div>
-                            <div className="text-xs text-slate-500 text-center">
+                            <div className="text-xs text-[#8CA3A0] text-center">
                                 {CIRCUIT_BREAKER_THRESHOLD} failures → OPEN | {CIRCUIT_RECOVERY_TIME / 1000}s → HALF-OPEN | 1 success → CLOSED
                             </div>
                         </div>
@@ -449,11 +449,11 @@ export default function DistributedFailureSimulator() {
 
                     {/* Retry Timeline */}
                     <div>
-                        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                            <RefreshCw className="w-5 h-5 text-purple-400" />
+                        <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+                            <RefreshCw className="w-5 h-5 text-[#E3B04B]" />
                             Exponential Backoff + Jitter
                         </h3>
-                        <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
+                        <div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]">
                             <div className="flex items-end gap-2 h-24 mb-3">
                                 {[1, 2, 4, 8].map((delay, idx) => {
                                     const timelineItem = retryTimeline[retryTimeline.length - 1];
@@ -467,19 +467,19 @@ export default function DistributedFailureSimulator() {
                                         >
                                             <motion.div
                                                 className={`w-full rounded-t ${isActive
-                                                        ? timelineItem.status === 'success' ? 'bg-emerald-500' : 'bg-red-500'
-                                                        : 'bg-slate-600'
+                                                        ? timelineItem.status === 'success' ? 'bg-[#86B786]' : 'bg-[#C9705C]'
+                                                        : 'bg-[rgba(232,228,215,0.15)]'
                                                     }`}
                                                 style={{ height: `${delay * 10}px` }}
                                                 animate={isActive ? { opacity: [0.5, 1, 0.5] } : {}}
                                                 transition={{ duration: 0.5, repeat: isActive ? Infinity : 0 }}
                                             />
-                                            <div className="text-xs text-slate-400 mt-1">{delay}s</div>
+                                            <div className="text-xs text-[#A8B8B4] mt-1">{delay}s</div>
                                         </motion.div>
                                     );
                                 })}
                             </div>
-                            <div className="text-xs text-slate-500 text-center">
+                            <div className="text-xs text-[#8CA3A0] text-center">
                                 delay = min(base × 2^attempt + jitter, 8s)
                             </div>
                         </div>
@@ -487,11 +487,11 @@ export default function DistributedFailureSimulator() {
 
                     {/* Live Request Stream */}
                     <div>
-                        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                            <Zap className="w-5 h-5 text-yellow-400 animate-pulse" />
+                        <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+                            <Zap className="w-5 h-5 text-[#D9A441] animate-pulse" />
                             Live Request Stream
                         </h3>
-                        <div className="bg-slate-800/30 rounded-lg p-3 border border-slate-700 max-h-40 overflow-y-auto">
+                        <div className="bg-[#0B1517] rounded-md p-3 border border-[rgba(232,228,215,0.10)] max-h-40 overflow-y-auto">
                             <AnimatePresence mode="popLayout">
                                 {requests.slice(-6).reverse().map((req) => (
                                     <motion.div
@@ -499,16 +499,16 @@ export default function DistributedFailureSimulator() {
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: 20 }}
-                                        className="flex items-center gap-2 text-xs py-1.5 border-b border-slate-700/50 last:border-0"
+                                        className="flex items-center gap-2 text-xs py-1.5 border-b border-[rgba(232,228,215,0.10)] last:border-0"
                                     >
-                                        <span className="text-slate-500">{req.fromService}</span>
-                                        <span className="text-slate-600">→</span>
-                                        <span className="text-slate-400">{req.toService}</span>
-                                        <span className={`ml-auto px-2 py-0.5 rounded flex items-center gap-1 ${req.status === 'success' ? 'bg-emerald-500/20 text-emerald-300' :
-                                                req.status === 'failed' ? 'bg-red-500/20 text-red-300' :
-                                                    req.status === 'circuit_open' ? 'bg-orange-500/20 text-orange-300' :
-                                                        req.status === 'retrying' ? 'bg-purple-500/20 text-purple-300' :
-                                                            'bg-blue-500/20 text-blue-300'
+                                        <span className="text-[#8CA3A0]">{req.fromService}</span>
+                                        <span className="text-[#8CA3A0]">→</span>
+                                        <span className="text-[#A8B8B4]">{req.toService}</span>
+                                        <span className={`ml-auto px-2 py-0.5 rounded flex items-center gap-1 ${req.status === 'success' ? 'bg-[#86B786]/15 text-[#86B786]' :
+                                                req.status === 'failed' ? 'bg-[#C9705C]/15 text-[#C9705C]' :
+                                                    req.status === 'circuit_open' ? 'bg-[#D9A441]/15 text-[#D9A441]' :
+                                                        req.status === 'retrying' ? 'bg-[#E3B04B]/15 text-[#E3B04B]' :
+                                                            'bg-[#6FA8B0]/15 text-[#6FA8B0]'
                                             }`}>
                                             {req.status === 'success' && <CheckCircle2 className="w-3 h-3" />}
                                             {req.status === 'failed' && <XCircle className="w-3 h-3" />}
@@ -527,7 +527,7 @@ export default function DistributedFailureSimulator() {
             </div>
 
             {/* Info Footer */}
-            <div className="mt-6 text-center text-sm text-slate-400">
+            <div className="mt-6 text-center text-sm text-[#A8B8B4]">
                 <p>Demonstrating circuit breakers, bulkhead isolation, and retry patterns for distributed system resilience</p>
             </div>
         </div>
