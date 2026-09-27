@@ -44,10 +44,10 @@ const TOOL_ICONS: Record<ToolType, React.ReactNode> = {
 };
 
 const TOOL_COLORS: Record<ToolType, string> = {
-    search: 'from-blue-500 to-cyan-500',
-    code: 'from-green-500 to-emerald-500',
-    database: 'from-purple-500 to-pink-500',
-    api: 'from-orange-500 to-yellow-500',
+    search: 'bg-[#6FA8B0]',
+    code: 'bg-[#86B786]',
+    database: 'bg-[#E3B04B]',
+    api: 'bg-[#D9A441]',
 };
 
 export default function LLMAgentVisualizer() {
@@ -269,33 +269,33 @@ export default function LLMAgentVisualizer() {
     const getStepColor = (step: ReasoningStep) => {
         switch (step.type) {
             case 'thinking':
-                return 'border-purple-500 bg-purple-500/10';
+                return 'border-[#E3B04B] bg-[#E3B04B]/10';
             case 'tool_call':
-                return step.tool ? `border-blue-500 bg-blue-500/10` : 'border-slate-500 bg-slate-500/10';
+                return step.tool ? `border-[#6FA8B0] bg-[#6FA8B0]/10` : 'border-[rgba(232,228,215,0.22)] bg-[rgba(232,228,215,0.05)]';
             case 'observation':
-                return 'border-yellow-500 bg-yellow-500/10';
+                return 'border-[#D9A441] bg-[#D9A441]/10';
             case 'response':
-                return 'border-emerald-500 bg-emerald-500/10';
+                return 'border-[#86B786] bg-[#86B786]/10';
         }
     };
 
     return (
-        <div className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
+        <div className="w-full bg-[#0D181B] rounded-md p-8 border border-[rgba(232,228,215,0.10)]">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-                            <Sparkles className="w-8 h-8 text-purple-400" />
+                        <h2 className="text-3xl font-bold text-[#E8E4D7] mb-2 flex items-center gap-3">
+                            <Sparkles className="w-8 h-8 text-[#E3B04B]" />
                             LLM Agent Reasoning
                         </h2>
-                        <p className="text-slate-400">ReAct pattern: Reason → Act → Observe → Respond</p>
+                        <p className="text-[#A8B8B4]">ReAct pattern: Reason → Act → Observe → Respond</p>
                     </div>
                     <div className="flex gap-2">
                         <button
                             onClick={runAgent}
                             disabled={isRunning}
-                            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center gap-2"
+                            className="px-4 py-2 bg-[#E3B04B] hover:bg-[#EDC06A] disabled:opacity-50 disabled:cursor-not-allowed text-[#0B1517] font-medium rounded-md transition-colors flex items-center gap-2"
                         >
                             {isRunning ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -307,7 +307,7 @@ export default function LLMAgentVisualizer() {
                         <button
                             onClick={reset}
                             disabled={isRunning}
-                            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white rounded-lg transition-colors flex items-center gap-2"
+                            className="px-4 py-2 bg-[#132124] text-[#A8B8B4] border border-[rgba(232,228,215,0.10)] hover:text-[#E8E4D7] disabled:opacity-50 rounded-md transition-colors flex items-center gap-2"
                         >
                             <RotateCcw className="w-4 h-4" />
                             Reset
@@ -317,16 +317,16 @@ export default function LLMAgentVisualizer() {
 
                 {/* Query Selector */}
                 <div className="mb-6">
-                    <label className="text-sm text-slate-400 mb-2 block">Select a query:</label>
+                    <label className="text-sm text-[#A8B8B4] mb-2 block">Select a query:</label>
                     <div className="flex flex-wrap gap-2">
                         {SAMPLE_QUERIES.map((query, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => !isRunning && setSelectedQuery(query)}
                                 disabled={isRunning}
-                                className={`px-3 py-2 rounded-lg text-sm transition-all ${selectedQuery === query
-                                        ? 'bg-purple-600 text-white'
-                                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                                className={`px-3 py-2 rounded-md text-sm transition-all ${selectedQuery === query
+                                        ? 'bg-[#E3B04B] text-[#0B1517] font-medium'
+                                        : 'bg-[#132124] text-[#A8B8B4] hover:text-[#E8E4D7]'
                                     } ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {query.length > 40 ? query.slice(0, 40) + '...' : query}
@@ -337,43 +337,43 @@ export default function LLMAgentVisualizer() {
 
                 {/* Metrics Dashboard */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Queries Run</p>
-                                <p className="text-2xl font-bold text-white">{metrics.totalQueries}</p>
+                                <p className="text-[#A8B8B4] text-sm">Queries Run</p>
+                                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.totalQueries}</p>
                             </div>
-                            <MessageSquare className="w-8 h-8 text-purple-400" />
+                            <MessageSquare className="w-8 h-8 text-[#E3B04B]" />
                         </div>
                     </motion.div>
 
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Tool Calls</p>
-                                <p className="text-2xl font-bold text-blue-400">{metrics.toolCalls}</p>
+                                <p className="text-[#A8B8B4] text-sm">Tool Calls</p>
+                                <p className="text-2xl font-bold text-[#6FA8B0]">{metrics.toolCalls}</p>
                             </div>
-                            <Cog className="w-8 h-8 text-blue-400" />
+                            <Cog className="w-8 h-8 text-[#6FA8B0]" />
                         </div>
                     </motion.div>
 
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Avg Latency</p>
-                                <p className="text-2xl font-bold text-emerald-400">{metrics.avgLatency}ms</p>
+                                <p className="text-[#A8B8B4] text-sm">Avg Latency</p>
+                                <p className="text-2xl font-bold text-[#86B786]">{metrics.avgLatency}ms</p>
                             </div>
-                            <Zap className="w-8 h-8 text-emerald-400" />
+                            <Zap className="w-8 h-8 text-[#86B786]" />
                         </div>
                     </motion.div>
 
-                    <motion.div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700" whileHover={{ scale: 1.02 }}>
+                    <motion.div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]" whileHover={{ scale: 1.02 }}>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-slate-400 text-sm">Tokens Used</p>
-                                <p className="text-2xl font-bold text-orange-400">{metrics.tokensUsed.toLocaleString()}</p>
+                                <p className="text-[#A8B8B4] text-sm">Tokens Used</p>
+                                <p className="text-2xl font-bold text-[#D9A441]">{metrics.tokensUsed.toLocaleString()}</p>
                             </div>
-                            <Sparkles className="w-8 h-8 text-orange-400" />
+                            <Sparkles className="w-8 h-8 text-[#D9A441]" />
                         </div>
                     </motion.div>
                 </div>
@@ -383,17 +383,17 @@ export default function LLMAgentVisualizer() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Query Display */}
                 <div className="lg:col-span-1">
-                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                        <MessageSquare className="w-5 h-5 text-purple-400" />
+                    <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+                        <MessageSquare className="w-5 h-5 text-[#E3B04B]" />
                         User Query
                     </h3>
-                    <div className="bg-slate-800/70 rounded-lg p-4 border border-slate-700">
-                        <p className="text-slate-300">{selectedQuery}</p>
+                    <div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]">
+                        <p className="text-[#A8B8B4]">{selectedQuery}</p>
                         {currentQuery && (
                             <div className="mt-4 flex items-center gap-2">
                                 <span className={`px-2 py-1 rounded text-xs ${currentQuery.status === 'complete'
-                                        ? 'bg-emerald-500/20 text-emerald-300'
-                                        : 'bg-purple-500/20 text-purple-300'
+                                        ? 'bg-[#86B786]/20 text-[#86B786]'
+                                        : 'bg-[#E3B04B]/20 text-[#E3B04B]'
                                     }`}>
                                     {currentQuery.status === 'complete' ? 'Complete' : 'Processing...'}
                                 </span>
@@ -403,14 +403,14 @@ export default function LLMAgentVisualizer() {
 
                     {/* Tools Legend */}
                     <div className="mt-6">
-                        <h4 className="text-sm font-semibold text-slate-400 mb-3">Available Tools</h4>
+                        <h4 className="text-sm font-semibold text-[#A8B8B4] mb-3">Available Tools</h4>
                         <div className="space-y-2">
                             {(Object.entries(TOOL_ICONS) as [ToolType, React.ReactNode][]).map(([tool, icon]) => (
                                 <div key={tool} className="flex items-center gap-2 text-sm">
-                                    <div className={`p-1.5 rounded bg-gradient-to-r ${TOOL_COLORS[tool]} text-white`}>
+                                    <div className={`p-1.5 rounded ${TOOL_COLORS[tool]} text-[#0B1517]`}>
                                         {icon}
                                     </div>
-                                    <span className="text-slate-300 capitalize">{tool}</span>
+                                    <span className="text-[#A8B8B4] capitalize">{tool}</span>
                                 </div>
                             ))}
                         </div>
@@ -419,14 +419,14 @@ export default function LLMAgentVisualizer() {
 
                 {/* Reasoning Chain */}
                 <div className="lg:col-span-2">
-                    <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                        <Brain className="w-5 h-5 text-purple-400" />
+                    <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+                        <Brain className="w-5 h-5 text-[#E3B04B]" />
                         Reasoning Chain
                     </h3>
 
                     <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
                         {!currentQuery && (
-                            <div className="text-center py-12 text-slate-500">
+                            <div className="text-center py-12 text-[#8CA3A0]">
                                 <Brain className="w-12 h-12 mx-auto mb-3 opacity-50" />
                                 <p>Click "Run Agent" to start the reasoning chain</p>
                             </div>
@@ -443,10 +443,10 @@ export default function LLMAgentVisualizer() {
                                 >
                                     {/* Step Header */}
                                     <div className="flex items-center gap-3 mb-2">
-                                        <div className={`p-2 rounded-lg ${step.type === 'thinking' ? 'bg-purple-500/20 text-purple-400' :
-                                                step.type === 'tool_call' ? 'bg-blue-500/20 text-blue-400' :
-                                                    step.type === 'observation' ? 'bg-yellow-500/20 text-yellow-400' :
-                                                        'bg-emerald-500/20 text-emerald-400'
+                                        <div className={`p-2 rounded-md ${step.type === 'thinking' ? 'bg-[#E3B04B]/20 text-[#E3B04B]' :
+                                                step.type === 'tool_call' ? 'bg-[#6FA8B0]/20 text-[#6FA8B0]' :
+                                                    step.type === 'observation' ? 'bg-[#D9A441]/20 text-[#D9A441]' :
+                                                        'bg-[#86B786]/20 text-[#86B786]'
                                             }`}>
                                             {step.status === 'active' ? (
                                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -457,26 +457,26 @@ export default function LLMAgentVisualizer() {
                                             )}
                                         </div>
                                         <div>
-                                            <span className="text-white font-medium capitalize">
+                                            <span className="text-[#E8E4D7] font-medium capitalize">
                                                 {step.type === 'tool_call' ? `Tool: ${step.tool}` : step.type.replace('_', ' ')}
                                             </span>
-                                            <span className="text-xs text-slate-500 ml-2">Step {idx + 1}</span>
+                                            <span className="text-xs text-[#8CA3A0] ml-2">Step {idx + 1}</span>
                                         </div>
                                         {idx < (currentQuery?.steps.length || 0) - 1 && (
-                                            <ArrowRight className="w-4 h-4 text-slate-500 ml-auto" />
+                                            <ArrowRight className="w-4 h-4 text-[#8CA3A0] ml-auto" />
                                         )}
                                     </div>
 
                                     {/* Step Content */}
                                     {step.content && (
-                                        <p className="text-slate-300 text-sm ml-11">{step.content}</p>
+                                        <p className="text-[#A8B8B4] text-sm ml-11">{step.content}</p>
                                     )}
 
                                     {/* Tool Input */}
                                     {step.toolInput && (
                                         <div className="ml-11 mt-2">
-                                            <div className="bg-slate-900/50 rounded p-2 font-mono text-xs text-slate-400">
-                                                <div className="flex items-center gap-2 text-blue-400 mb-1">
+                                            <div className="bg-[#0B1517] rounded p-2 font-mono text-xs text-[#A8B8B4]">
+                                                <div className="flex items-center gap-2 text-[#6FA8B0] mb-1">
                                                     <Terminal className="w-3 h-3" />
                                                     <span>Input:</span>
                                                 </div>
@@ -488,12 +488,12 @@ export default function LLMAgentVisualizer() {
                                     {/* Tool Output (Observation) */}
                                     {step.toolOutput && (
                                         <div className="ml-11 mt-2">
-                                            <div className="bg-slate-900/50 rounded p-2 font-mono text-xs">
-                                                <div className="flex items-center gap-2 text-yellow-400 mb-1">
+                                            <div className="bg-[#0B1517] rounded p-2 font-mono text-xs">
+                                                <div className="flex items-center gap-2 text-[#D9A441] mb-1">
                                                     <Eye className="w-3 h-3" />
                                                     <span>Output:</span>
                                                 </div>
-                                                <pre className="whitespace-pre-wrap text-emerald-300">{step.toolOutput}</pre>
+                                                <pre className="whitespace-pre-wrap text-[#86B786]">{step.toolOutput}</pre>
                                             </div>
                                         </div>
                                     )}
@@ -505,7 +505,7 @@ export default function LLMAgentVisualizer() {
             </div>
 
             {/* Info Footer */}
-            <div className="mt-6 text-center text-sm text-slate-400">
+            <div className="mt-6 text-center text-sm text-[#A8B8B4]">
                 <p>Demonstrating the ReAct (Reason + Act) pattern for LLM agents with tool use</p>
             </div>
         </div>

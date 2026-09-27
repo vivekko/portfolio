@@ -1,148 +1,136 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import NodeField from './NodeField';
+import Terminal from './Terminal';
 
-const NetworkVisualization = dynamic(() => import('./EnhancedNetworkVisualization'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  ),
-});
+const EASE = [0.16, 1, 0.3, 1] as const;
 
-const LiveTerminal = dynamic(() => import('./LiveTerminal'), { ssr: false });
-const MetricsDashboard = dynamic(() => import('./MetricsDashboard'), { ssr: false });
+function RevealLine({
+  children,
+  delay,
+  className,
+}: {
+  children: React.ReactNode;
+  delay: number;
+  className?: string;
+}) {
+  return (
+    <span className="block overflow-hidden">
+      <motion.span
+        className={`block ${className ?? ''}`}
+        initial={{ y: '110%' }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1.1, delay, ease: EASE }}
+      >
+        {children}
+      </motion.span>
+    </span>
+  );
+}
 
 export default function Hero() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.25]);
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-20">
-      {/* 3D Background */}
-      <div className="absolute inset-0 opacity-30">
-        <NetworkVisualization />
+    <div ref={ref} id="top" className="relative flex h-screen flex-col overflow-hidden">
+      {/* live topology behind everything */}
+      <div className="absolute inset-0">
+        <NodeField />
       </div>
+      {/* keep type legible over the field */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/60" />
 
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Hero Content */}
-        <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="pointer-events-none relative z-10 mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 content-end gap-12 px-6 pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:px-8"
+      >
+        <div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.1 }}
+            className="mb-6 hidden font-mono text-xs text-mist [@media(pointer:fine)]:block"
           >
-            <motion.h1
-              className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Vivek Ojha
-            </motion.h1>
+            live node field — the cursor is a probe
+          </motion.p>
 
-            <motion.h2
-              className="text-xl sm:text-2xl md:text-3xl font-medium text-slate-300 mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Software Engineer II at{' '}
-              <span className="text-white font-semibold">Smarsh</span>
-            </motion.h2>
+          <h1 className="type-display text-[clamp(3.6rem,9vw,7.5rem)] text-bone">
+            <RevealLine delay={0.15}>VIVEK</RevealLine>
+            <RevealLine delay={0.27}>OJHA</RevealLine>
+          </h1>
 
-            <motion.p
-              className="text-lg text-slate-400 mb-6 max-w-2xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              Designing and building distributed systems that scale.
-              Focused on microservices architecture, event-driven systems, and platform reliability.
-            </motion.p>
+          <div className="mt-8 max-w-xl">
+            <RevealLine delay={0.45} className="text-lg leading-relaxed text-mist">
+              Software Engineer II at Smarsh. I design the systems nobody sees
+              and everybody depends on — event streams, microservices, and the
+              plumbing that keeps them honest at scale.
+            </RevealLine>
+          </div>
 
-            <motion.div
-              className="flex flex-wrap justify-center gap-3 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="pointer-events-auto mt-10 flex items-center gap-8"
+          >
+            <a
+              href="https://github.com/vivekko"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="open"
+              className="link-sweep text-sm text-bone"
             >
-              {[
-                { label: 'Java / Spring Boot', color: 'bg-blue-500/20 text-blue-300 border-blue-500/50' },
-                { label: 'Kafka / Kinesis', color: 'bg-purple-500/20 text-purple-300 border-purple-500/50' },
-                { label: 'Kubernetes / Docker', color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50' },
-                { label: 'AWS', color: 'bg-orange-500/20 text-orange-300 border-orange-500/50' },
-              ].map((badge, idx) => (
-                <span key={idx} className={`px-4 py-2 rounded-full text-sm font-medium border ${badge.color}`}>
-                  {badge.label}
-                </span>
-              ))}
-            </motion.div>
-
-            <motion.div
-              className="flex flex-wrap justify-center gap-4 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/vivek-ojha-a540a9172/"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="open"
+              className="link-sweep text-sm text-bone"
             >
-              <a
-                href="https://github.com/vivekko"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all duration-300 hover:scale-105"
-              >
-                <Github size={20} />
-                <span>GitHub</span>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/vivek-ojha-a540a9172/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 hover:scale-105"
-              >
-                <Linkedin size={20} />
-                <span>LinkedIn</span>
-              </a>
-              <a
-                href="mailto:vivekojha961@gmail.com"
-                className="flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all duration-300 hover:scale-105"
-              >
-                <Mail size={20} />
-                <span>Email</span>
-              </a>
-            </motion.div>
+              LinkedIn
+            </a>
+            <a
+              href="mailto:vivekojha961@gmail.com"
+              data-cursor="write"
+              className="link-sweep text-sm text-bone"
+            >
+              Email
+            </a>
           </motion.div>
         </div>
 
-        {/* Live Terminal & Metrics Dashboard */}
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          <LiveTerminal />
-          <MetricsDashboard />
-        </div>
-
-        {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="pointer-events-auto hidden md:block"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-slate-400"
-          >
-            <div className="w-6 h-10 border-2 border-slate-400 rounded-full flex justify-center">
-              <motion.div
-                className="w-1.5 h-3 bg-slate-400 rounded-full mt-2"
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-            </div>
-          </motion.div>
+          <Terminal />
         </motion.div>
-      </div>
-    </section>
+      </motion.div>
+
+      {/* scroll hint: a thin falling line, not the mouse-pill cliché */}
+      <motion.div
+        style={{ opacity: hintOpacity }}
+        className="absolute bottom-0 right-8 z-10 hidden h-24 w-px overflow-hidden bg-line sm:block lg:right-12"
+      >
+        <motion.div
+          className="h-8 w-px bg-signal"
+          animate={{ y: [-32, 96] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: 1.6 }}
+        />
+      </motion.div>
+    </div>
   );
 }

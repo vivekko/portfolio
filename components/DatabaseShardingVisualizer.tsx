@@ -27,10 +27,10 @@ interface Query {
 type ShardingStrategy = 'hash' | 'range' | 'geo';
 
 const REGIONS = [
-  { name: 'US-East', color: '#3b82f6', lat: 40, lon: -74 },
-  { name: 'US-West', color: '#10b981', lat: 37, lon: -122 },
-  { name: 'EU', color: '#f59e0b', lat: 51, lon: 0 },
-  { name: 'Asia', color: '#8b5cf6', lat: 35, lon: 139 },
+  { name: 'US-East', color: '#6FA8B0', lat: 40, lon: -74 },
+  { name: 'US-West', color: '#86B786', lat: 37, lon: -122 },
+  { name: 'EU', color: '#D9A441', lat: 51, lon: 0 },
+  { name: 'Asia', color: '#B08FC9', lat: 35, lon: 139 },
 ];
 
 export default function DatabaseShardingVisualizer() {
@@ -53,18 +53,18 @@ export default function DatabaseShardingVisualizer() {
     switch (strategy) {
       case 'hash':
         newShards = [
-          { id: 0, name: 'Shard-0', dataSize: 2400, queryLoad: 0, color: '#3b82f6' },
-          { id: 1, name: 'Shard-1', dataSize: 2300, queryLoad: 0, color: '#10b981' },
-          { id: 2, name: 'Shard-2', dataSize: 2500, queryLoad: 0, color: '#f59e0b' },
-          { id: 3, name: 'Shard-3', dataSize: 2200, queryLoad: 0, color: '#8b5cf6' },
+          { id: 0, name: 'Shard-0', dataSize: 2400, queryLoad: 0, color: '#6FA8B0' },
+          { id: 1, name: 'Shard-1', dataSize: 2300, queryLoad: 0, color: '#86B786' },
+          { id: 2, name: 'Shard-2', dataSize: 2500, queryLoad: 0, color: '#D9A441' },
+          { id: 3, name: 'Shard-3', dataSize: 2200, queryLoad: 0, color: '#B08FC9' },
         ];
         break;
       case 'range':
         newShards = [
-          { id: 0, name: 'Shard-A', dataSize: 1800, queryLoad: 0, color: '#3b82f6', rangeStart: 0, rangeEnd: 2500 },
-          { id: 1, name: 'Shard-B', dataSize: 2600, queryLoad: 0, color: '#10b981', rangeStart: 2500, rangeEnd: 5000 },
-          { id: 2, name: 'Shard-C', dataSize: 2100, queryLoad: 0, color: '#f59e0b', rangeStart: 5000, rangeEnd: 7500 },
-          { id: 3, name: 'Shard-D', dataSize: 2900, queryLoad: 0, color: '#8b5cf6', rangeStart: 7500, rangeEnd: 10000 },
+          { id: 0, name: 'Shard-A', dataSize: 1800, queryLoad: 0, color: '#6FA8B0', rangeStart: 0, rangeEnd: 2500 },
+          { id: 1, name: 'Shard-B', dataSize: 2600, queryLoad: 0, color: '#86B786', rangeStart: 2500, rangeEnd: 5000 },
+          { id: 2, name: 'Shard-C', dataSize: 2100, queryLoad: 0, color: '#D9A441', rangeStart: 5000, rangeEnd: 7500 },
+          { id: 3, name: 'Shard-D', dataSize: 2900, queryLoad: 0, color: '#B08FC9', rangeStart: 7500, rangeEnd: 10000 },
         ];
         break;
       case 'geo':
@@ -210,21 +210,21 @@ export default function DatabaseShardingVisualizer() {
   };
 
   return (
-    <div className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-8 border border-slate-700 shadow-2xl">
+    <div className="w-full bg-[#0D181B] rounded-md p-8 border border-[rgba(232,228,215,0.10)]">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-              <Database className="w-8 h-8 text-blue-400" />
+            <h2 className="text-3xl font-bold text-[#E8E4D7] mb-2 flex items-center gap-3">
+              <Database className="w-8 h-8 text-[#6FA8B0]" />
               Database Sharding
             </h2>
-            <p className="text-slate-400">Horizontal partitioning for scalability</p>
+            <p className="text-[#A8B8B4]">Horizontal partitioning for scalability</p>
           </div>
           <button
             onClick={handleRebalance}
             disabled={isRebalancing}
-            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-[#E3B04B] hover:bg-[#EDC06A] disabled:bg-[#E3B04B]/40 disabled:cursor-not-allowed text-[#0B1517] font-medium rounded-md transition-colors flex items-center gap-2"
           >
             <RefreshCw className={`w-4 h-4 ${isRebalancing ? 'animate-spin' : ''}`} />
             {isRebalancing ? 'Rebalancing...' : 'Trigger Rebalance'}
@@ -235,10 +235,10 @@ export default function DatabaseShardingVisualizer() {
         <div className="flex gap-3 mb-6 flex-wrap">
           <button
             onClick={() => setStrategy('hash')}
-            className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-md font-medium transition-all flex items-center gap-2 ${
               strategy === 'hash'
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/50'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-[#6FA8B0] text-[#0B1517]'
+                : 'bg-[#132124] text-[#A8B8B4] border border-[rgba(232,228,215,0.10)] hover:text-[#E8E4D7]'
             }`}
           >
             <Hash className="w-4 h-4" />
@@ -246,10 +246,10 @@ export default function DatabaseShardingVisualizer() {
           </button>
           <button
             onClick={() => setStrategy('range')}
-            className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-md font-medium transition-all flex items-center gap-2 ${
               strategy === 'range'
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/50'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-[#86B786] text-[#0B1517]'
+                : 'bg-[#132124] text-[#A8B8B4] border border-[rgba(232,228,215,0.10)] hover:text-[#E8E4D7]'
             }`}
           >
             <SortAsc className="w-4 h-4" />
@@ -257,10 +257,10 @@ export default function DatabaseShardingVisualizer() {
           </button>
           <button
             onClick={() => setStrategy('geo')}
-            className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-md font-medium transition-all flex items-center gap-2 ${
               strategy === 'geo'
-                ? 'bg-amber-600 text-white shadow-lg shadow-amber-500/50'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-[#E3B04B] text-[#0B1517]'
+                : 'bg-[#132124] text-[#A8B8B4] border border-[rgba(232,228,215,0.10)] hover:text-[#E8E4D7]'
             }`}
           >
             <MapPin className="w-4 h-4" />
@@ -269,16 +269,16 @@ export default function DatabaseShardingVisualizer() {
         </div>
 
         {/* Strategy Description */}
-        <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700 mb-6">
+        <div className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)] mb-6">
           <div className="flex items-start gap-3">
-            <div className="p-2 bg-slate-700/50 rounded-lg">
+            <div className="p-2 bg-[#0B1517] rounded-md text-[#E8E4D7]">
               {getStrategyIcon()}
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-1">
+              <h4 className="text-[#E8E4D7] font-semibold mb-1">
                 {strategy.charAt(0).toUpperCase() + strategy.slice(1)} Sharding Strategy
               </h4>
-              <p className="text-slate-400 text-sm">{getStrategyDescription()}</p>
+              <p className="text-[#A8B8B4] text-sm">{getStrategyDescription()}</p>
             </div>
           </div>
         </div>
@@ -286,54 +286,54 @@ export default function DatabaseShardingVisualizer() {
         {/* Metrics Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">Total Queries</p>
-                <p className="text-2xl font-bold text-white">{metrics.totalQueries.toLocaleString()}</p>
+                <p className="text-[#A8B8B4] text-sm">Total Queries</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.totalQueries.toLocaleString()}</p>
               </div>
-              <BarChart3 className="w-8 h-8 text-blue-400" />
+              <BarChart3 className="w-8 h-8 text-[#6FA8B0]" />
             </div>
           </motion.div>
 
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">QPS</p>
-                <p className="text-2xl font-bold text-white">{metrics.queriesPerSec}/s</p>
+                <p className="text-[#A8B8B4] text-sm">QPS</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.queriesPerSec}/s</p>
               </div>
-              <Zap className="w-8 h-8 text-emerald-400" />
+              <Zap className="w-8 h-8 text-[#86B786]" />
             </div>
           </motion.div>
 
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">Total Data</p>
-                <p className="text-2xl font-bold text-white">{(metrics.totalData / 1000).toFixed(1)}GB</p>
+                <p className="text-[#A8B8B4] text-sm">Total Data</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{(metrics.totalData / 1000).toFixed(1)}GB</p>
               </div>
-              <Database className="w-8 h-8 text-purple-400" />
+              <Database className="w-8 h-8 text-[#E3B04B]" />
             </div>
           </motion.div>
 
           <motion.div
-            className="bg-slate-800/50 rounded-lg p-4 border border-slate-700"
+            className="bg-[#132124] rounded-md p-4 border border-[rgba(232,228,215,0.10)]"
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-400 text-sm">Avg Latency</p>
-                <p className="text-2xl font-bold text-white">{metrics.avgLatency.toFixed(1)}ms</p>
+                <p className="text-[#A8B8B4] text-sm">Avg Latency</p>
+                <p className="text-2xl font-bold text-[#E8E4D7]">{metrics.avgLatency.toFixed(1)}ms</p>
               </div>
-              <TrendingUp className="w-8 h-8 text-yellow-400" />
+              <TrendingUp className="w-8 h-8 text-[#D9A441]" />
             </div>
           </motion.div>
         </div>
@@ -341,8 +341,8 @@ export default function DatabaseShardingVisualizer() {
 
       {/* Shards Visualization */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <Server className="w-5 h-5 text-blue-400" />
+        <h3 className="text-lg font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+          <Server className="w-5 h-5 text-[#6FA8B0]" />
           Database Shards ({shards.length})
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -353,12 +353,12 @@ export default function DatabaseShardingVisualizer() {
             return (
               <motion.div
                 key={shard.id}
-                className={`bg-slate-800/70 rounded-lg p-5 border-2 transition-all ${
-                  isRebalancing ? 'border-purple-500' : 'border-slate-700'
+                className={`bg-[#132124] rounded-md p-5 border-2 transition-all ${
+                  isRebalancing ? 'border-[#E3B04B]' : 'border-[rgba(232,228,215,0.10)]'
                 }`}
                 animate={isRebalancing ? {
                   scale: [1, 1.02, 1],
-                  borderColor: ['#475569', '#a855f7', '#475569'],
+                  borderColor: ['rgba(232,228,215,0.10)', '#E3B04B', 'rgba(232,228,215,0.10)'],
                 } : {}}
                 transition={{ duration: 0.5, repeat: isRebalancing ? Infinity : 0 }}
                 whileHover={{ scale: 1.03 }}
@@ -369,10 +369,10 @@ export default function DatabaseShardingVisualizer() {
                       className="w-3 h-3 rounded-full animate-pulse"
                       style={{ backgroundColor: shard.color }}
                     />
-                    <span className="text-white font-semibold">{shard.name}</span>
+                    <span className="text-[#E8E4D7] font-semibold">{shard.name}</span>
                   </div>
                   {isHeavy && (
-                    <div className="px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded flex items-center gap-1">
+                    <div className="px-2 py-1 bg-[#C9705C]/20 text-[#C9705C] text-xs rounded flex items-center gap-1">
                       <TrendingUp className="w-3 h-3" />
                       Hot
                     </div>
@@ -382,28 +382,28 @@ export default function DatabaseShardingVisualizer() {
                 {/* Shard Info */}
                 <div className="space-y-3 mb-4">
                   {strategy === 'range' && shard.rangeStart !== undefined && (
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-[#A8B8B4]">
                       Range: {shard.rangeStart} - {shard.rangeEnd}
                     </div>
                   )}
                   {strategy === 'geo' && shard.region && (
-                    <div className="text-xs text-slate-400 flex items-center gap-1">
+                    <div className="text-xs text-[#A8B8B4] flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
                       {shard.region}
                     </div>
                   )}
-                  <div className="text-xs text-slate-400">
+                  <div className="text-xs text-[#A8B8B4]">
                     Data: {(shard.dataSize / 1000).toFixed(2)} GB ({dataPercentage.toFixed(1)}%)
                   </div>
                 </div>
 
                 {/* Data Size Bar */}
                 <div className="mb-3">
-                  <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <div className="flex items-center justify-between text-xs text-[#A8B8B4] mb-1">
                     <span>Storage</span>
                     <span>{dataPercentage.toFixed(1)}%</span>
                   </div>
-                  <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+                  <div className="h-2 bg-[#0B1517] rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       style={{ backgroundColor: shard.color }}
@@ -416,9 +416,9 @@ export default function DatabaseShardingVisualizer() {
 
                 {/* Query Load */}
                 <div>
-                  <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <div className="flex items-center justify-between text-xs text-[#A8B8B4] mb-1">
                     <span>Query Load</span>
-                    <span className={isHeavy ? 'text-red-400 font-semibold' : ''}>
+                    <span className={isHeavy ? 'text-[#C9705C] font-semibold' : ''}>
                       {shard.queryLoad} QPS
                     </span>
                   </div>
@@ -427,7 +427,7 @@ export default function DatabaseShardingVisualizer() {
                       <div
                         key={idx}
                         className={`h-1 flex-1 rounded-full ${
-                          idx < (shard.queryLoad / 2) ? 'bg-emerald-400' : 'bg-slate-700'
+                          idx < (shard.queryLoad / 2) ? 'bg-[#86B786]' : 'bg-[#0B1517]'
                         }`}
                       />
                     ))}
@@ -440,9 +440,9 @@ export default function DatabaseShardingVisualizer() {
       </div>
 
       {/* Query Router Visualization */}
-      <div className="bg-slate-800/30 rounded-lg p-5 border border-slate-700">
-        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-          <Zap className="w-4 h-4 text-emerald-400 animate-pulse" />
+      <div className="bg-[#132124] rounded-md p-5 border border-[rgba(232,228,215,0.10)]">
+        <h3 className="text-sm font-semibold text-[#E8E4D7] mb-4 flex items-center gap-2">
+          <Zap className="w-4 h-4 text-[#86B786] animate-pulse" />
           Live Query Router
         </h3>
 
@@ -457,15 +457,15 @@ export default function DatabaseShardingVisualizer() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
-                  className="flex items-center gap-3 text-xs py-2 px-3 bg-slate-800/50 rounded border border-slate-700"
+                  className="flex items-center gap-3 text-xs py-2 px-3 bg-[#0B1517] rounded-md border border-[rgba(232,228,215,0.10)]"
                 >
                   <span className={`px-2 py-1 rounded font-mono ${
-                    query.type === 'read' ? 'bg-blue-500/20 text-blue-300' : 'bg-orange-500/20 text-orange-300'
+                    query.type === 'read' ? 'bg-[#6FA8B0]/20 text-[#6FA8B0]' : 'bg-[#D9A441]/20 text-[#D9A441]'
                   }`}>
                     {query.type.toUpperCase()}
                   </span>
-                  <span className="text-slate-400">user_id: {query.userId}</span>
-                  <span className="text-slate-500">→</span>
+                  <span className="text-[#A8B8B4]">user_id: {query.userId}</span>
+                  <span className="text-[#8CA3A0]">→</span>
                   <span
                     className="px-2 py-1 rounded font-medium"
                     style={{
@@ -476,9 +476,9 @@ export default function DatabaseShardingVisualizer() {
                     {shard?.name}
                   </span>
                   <span className={`ml-auto px-2 py-1 rounded text-xs ${
-                    query.status === 'routing' ? 'bg-yellow-500/20 text-yellow-300' :
-                    query.status === 'executing' ? 'bg-purple-500/20 text-purple-300' :
-                    'bg-emerald-500/20 text-emerald-300'
+                    query.status === 'routing' ? 'bg-[#D9A441]/20 text-[#D9A441]' :
+                    query.status === 'executing' ? 'bg-[#E3B04B]/20 text-[#E3B04B]' :
+                    'bg-[#86B786]/20 text-[#86B786]'
                   }`}>
                     {query.status}
                   </span>
@@ -490,7 +490,7 @@ export default function DatabaseShardingVisualizer() {
       </div>
 
       {/* Info Footer */}
-      <div className="mt-6 text-center text-sm text-slate-400">
+      <div className="mt-6 text-center text-sm text-[#A8B8B4]">
         <p>Demonstrating {strategy}-based sharding across {shards.length} database shards for horizontal scalability</p>
       </div>
     </div>
